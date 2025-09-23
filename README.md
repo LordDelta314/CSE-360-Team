@@ -1,18 +1,18 @@
-CSE 360 - Team 14
+𝘊𝘚𝘌 360 - 𝘛𝘦𝘢𝘮 14
 
-Team Project Phase 1 (In Progress)
+𝘛𝘦𝘢𝘮 𝘗𝘳𝘰𝘫𝘦𝘤𝘵 𝘗𝘩𝘢𝘴𝘦 1 (𝘐𝘯 𝘗𝘳𝘰𝘨𝘳𝘦𝘴𝘴)
 
-Mav - Deadline for Invitation Code Implementation - Files Edited:
-  - Database.java
-  - ControllerAdminHome.java
-  - ViewNewAccount.java
+𝘔𝘢𝘷 - 𝘋𝘦𝘢𝘥𝘭𝘪𝘯𝘦 𝘧𝘰𝘳 𝘐𝘯𝘷𝘪𝘵𝘢𝘵𝘪𝘰𝘯 𝘊𝘰𝘥𝘦 𝘐𝘮𝘱𝘭𝘦𝘮𝘦𝘯𝘵𝘢𝘵𝘪𝘰𝘯 - 𝘍𝘪𝘭𝘦𝘴 𝘌𝘥𝘪𝘵𝘦𝘥:
+  - 𝘋𝘢𝘵𝘢𝘣𝘢𝘴𝘦.𝘫𝘢𝘷𝘢
+  - 𝘊𝘰𝘯𝘵𝘳𝘰𝘭𝘭𝘦𝘳𝘈𝘥𝘮𝘪𝘯𝘏𝘰𝘮𝘦.𝘫𝘢𝘷𝘢
+  - 𝘝𝘪𝘦𝘸𝘕𝘦𝘸𝘈𝘤𝘤𝘰𝘶𝘯𝘵.𝘫𝘢𝘷𝘢
 
-Mason - Add/Remove Roles Implementation - Files Edited:
-  - ControllerAddRemoveRoles.java
+𝘔𝘢𝘴𝘰𝘯 - 𝘈𝘥𝘥/𝘙𝘦𝘮𝘰𝘷𝘦 𝘙𝘰𝘭𝘦𝘴 𝘐𝘮𝘱𝘭𝘦𝘮𝘦𝘯𝘵𝘢𝘵𝘪𝘰𝘯 - 𝘍𝘪𝘭𝘦𝘴 𝘌𝘥𝘪𝘵𝘦𝘥: 
+  - 𝘊𝘰𝘯𝘵𝘳𝘰𝘭𝘭𝘦𝘳𝘈𝘥𝘥𝘙𝘦𝘮𝘰𝘷𝘦𝘙𝘰𝘭𝘦𝘴.𝘫𝘢𝘷𝘢
 
-Adam - Delete User - Files Edited:
-  - Database.java
-  - ControllerAdminHome.java
-  - guiDeleteUser -> Controller/Model/View
+𝘈𝘥𝘢𝘮 - 𝘋𝘦𝘭𝘦𝘵𝘦 𝘜𝘴𝘦𝘳 - 𝘍𝘪𝘭𝘦𝘴 𝘌𝘥𝘪𝘵𝘦𝘥:
+  - 𝘋𝘢𝘵𝘢𝘣𝘢𝘴𝘦.𝘫𝘢𝘷𝘢
+  - 𝘊𝘰𝘯𝘵𝘳𝘰𝘭𝘭𝘦𝘳𝘈𝘥𝘮𝘪𝘯𝘏𝘰𝘮𝘦.𝘫𝘢𝘷𝘢
+  - 𝘨𝘶𝘪𝘋𝘦𝘭𝘦𝘵𝘦𝘜𝘴𝘦𝘳 -> 𝘊𝘰𝘯𝘵𝘳𝘰𝘭𝘭𝘦𝘳/𝘔𝘰𝘥𝘦𝘭/𝘝𝘪𝘦𝘸
 
 ...
