@@ -19,6 +19,9 @@ public class ControllerAddRemoveRoles {
 
 	// Reference for the in-memory database so this package has access
 	private static Database theDatabase = applicationMain.FoundationsMain.database;		
+	
+	
+	//The current logged in user???
 
 	
 	/**********
@@ -96,7 +99,6 @@ public class ControllerAddRemoveRoles {
 	 */
 	private static void setupSelectedUser() {
 		System.out.println("*** Entering setupSelectedUser");
-		
 		// Create the list of roles that could be added for the currently selected user (e.g., Do
 		// not show a role to add that the user already has!)
 		ViewAddRemoveRoles.addList.clear();
@@ -112,8 +114,10 @@ public class ControllerAddRemoveRoles {
 		// not show a role to remove that the user does not have!)
 		ViewAddRemoveRoles.removeList.clear();
 		ViewAddRemoveRoles.removeList.add("<Select a role>");
-		if (theDatabase.getCurrentAdminRole())
+		// Only shows ability to remove the Admin role if: SelectedUser is an Admin, and TheUser is not the Selected user.
+		if (theDatabase.getCurrentAdminRole() && !(ViewAddRemoveRoles.theUser.getUserName().compareTo(ViewAddRemoveRoles.theSelectedUser) == 0 )) {
 			ViewAddRemoveRoles.removeList.add("Admin");
+		}
 		if (theDatabase.getCurrentNewRole1())
 			ViewAddRemoveRoles.removeList.add("Role1");
 		if (theDatabase.getCurrentNewRole2())
