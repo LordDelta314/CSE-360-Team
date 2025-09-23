@@ -13,5 +13,6 @@ Mason - Add/Remove Roles Implementation - Files Edited:
 Adam - Delete User - Files Edited:
   - Database.java
   - ControllerAdminHome.java
+  - guiDeleteUser -> Controller/Model/View
 
 ...
