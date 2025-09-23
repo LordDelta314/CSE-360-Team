@@ -231,6 +231,27 @@ public class Database {
 		}
 		
 	}
+
+	
+/*******
+	 * <p> Method: removeUser(String username) </p>
+	 * 
+	 * <p> Description: Deletes a row in the database using the username string parameter. </p>
+	 * 
+	 * @throws SQLException when there is an issue creating the SQL command or executing it.
+	 * 
+	 * @param user specifies a string of the username of the user to be deleted from the database.
+	 * 
+	 */
+	public void removeUser(String username) throws SQLException {
+		String deleteUser = "DELETE from userDB WHERE userName = ?";
+		try (PreparedStatement pstmt = connection.prepareStatement(deleteUser)) {
+			pstmt.setString(1, username);
+			pstmt.executeUpdate();
+		}
+		
+	}
+
 	
 /*******
  *  <p> Method: List getUserList() </p>
