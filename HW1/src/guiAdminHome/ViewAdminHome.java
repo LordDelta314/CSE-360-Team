@@ -73,25 +73,14 @@ public class ViewAdminHome {
 
 	// GUI Area 2: This area is used to provide status of the system.  This basic foundational code
 	// does not have much current status information to display.
-	protected static Label label_NumberOfInvitations = 
+	public static Label label_NumberOfInvitations = 
 			new Label("Number of Oustanding Invitations: x");
 	protected static Label label_NumberOfUsers = new Label("Number of Users: x");
 	
 	// This is a separator and it is used to partition the GUI for various tasks
 	private static Line line_Separator2 = new Line(20, 165, width-20, 165);
 	
-	// GUI Area 3: This is the first of two areas provided the admin with a set of action buttons
-	// that can be used to perform the tasks allocated to the admin role.  This part is about
-	// inviting potential new users to establish an account and what role that user will have.
-	protected static Label label_Invitations = new Label("Send An Invitation");
-	protected static Label label_InvitationEmailAddress = new Label("Email Address");
-	protected static TextField text_InvitationEmailAddress = new TextField();
-	protected static ComboBox <String> combobox_SelectRole = new ComboBox <String>();
-	protected static String [] roles = {"Admin", "Role1", "Role2"};
-	protected static Button button_SendInvitation = new Button("Send Invitation");
-	protected static Alert alertEmailError = new Alert(AlertType.INFORMATION);
-	protected static Alert alertEmailSent = new Alert(AlertType.INFORMATION);
-	protected static Alert alertCurrentError = new Alert(AlertType.INFORMATION);
+	// GUI Area 3: Currently empty
 	
 	// This is a separator and it is used to partition the GUI for various tasks
 	private static Line line_Separator3 = new Line(20, 255, width-20, 255);
@@ -172,9 +161,6 @@ public class ViewAdminHome {
 		// state of the system.
 		theDatabase.getUserAccountDetails(user.getUserName());		// Fetch this user's data
 		applicationMain.FoundationsMain.activeHomePage = theRole;	// Set this as the active Home																	// UserUpdate page
-
-		// Set the role for potential users to the default (No role selected)
-		combobox_SelectRole.getSelectionModel().select(0);
 				
 		// Set the title for the window, display the page, and wait for the Admin to do something
 		theStage.setTitle("CSE 360 Foundation Code: Admin Home Page");
@@ -222,27 +208,6 @@ public class ViewAdminHome {
 				theDatabase.getNumberOfUsers());
 	
 		// GUI Area 3
-		setupLabelUI(label_Invitations, "Arial", 20, width, Pos.BASELINE_LEFT, 20, 175);
-	
-		setupLabelUI(label_InvitationEmailAddress, "Arial", 16, width, Pos.BASELINE_LEFT,
-		20, 210);
-	
-		setupTextUI(text_InvitationEmailAddress, "Arial", 16, 360, Pos.BASELINE_LEFT,
-		130, 205, true);
-	
-		setupComboBoxUI(combobox_SelectRole, "Dialog", 16, 90, 500, 205);
-	
-		List<String> list = new ArrayList<String>();	// Create a new list empty list of the
-		for (int i = 0; i < roles.length; i++) {		// roles this code currently supports
-			list.add(roles[i]);
-		}
-		combobox_SelectRole.setItems(FXCollections.observableArrayList(list));
-		combobox_SelectRole.getSelectionModel().select(0);
-		alertEmailSent.setTitle("Invitation");
-		alertEmailSent.setHeaderText("Invitation was sent");
-
-		setupButtonUI(button_SendInvitation, "Dialog", 16, 150, Pos.CENTER, 630, 205);
-		button_SendInvitation.setOnAction((event) -> {ControllerAdminHome.performInvitation(); });
 	
 		// GUI Area 4
 		setupButtonUI(button_ManageInvitations, "Dialog", 16, 250, Pos.CENTER, 20, 270);
@@ -278,9 +243,7 @@ public class ViewAdminHome {
 			label_PageTitle, label_UserDetails, button_UpdateThisUser, line_Separator1,
     		label_NumberOfInvitations, label_NumberOfUsers,
     		line_Separator2,
-    		label_Invitations, 
-    		label_InvitationEmailAddress, text_InvitationEmailAddress,
-    		combobox_SelectRole, button_SendInvitation, line_Separator3,
+    		line_Separator3,
     		button_ManageInvitations,
     		button_SetOnetimePassword,
     		button_DeleteUser,
