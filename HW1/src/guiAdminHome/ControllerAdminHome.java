@@ -40,57 +40,6 @@ public class ControllerAdminHome {
 	// Reference for the in-memory database so this package has access
 	private static Database theDatabase = applicationMain.FoundationsMain.database;
 
-	/**********
-	 * <p> 
-	 * 
-	 * Title: performInvitation () Method. </p>
-	 * 
-	 * <p> Description: Protected method to send an email inviting a potential user to establish
-	 * an account and a specific role. </p>
-	 */
-	protected static void performInvitation () {
-		// Verify that the email address is valid - If not alert the user and return
-		String emailAddress = ViewAdminHome.text_InvitationEmailAddress.getText();
-		if (invalidEmailAddress(emailAddress)) {
-			return;
-		}
-		
-		// Verify that the current user cannot send an invitation to themselves, display an error message
-		if (emailAddress.equals(theDatabase.getCurrentEmailAddress())) {
-			System.out.println("Please choose another user that isn't you.");
-			// need to add an alert here
-			ViewAdminHome.alertCurrentError.setContentText("Please choose another user that isn't you.");
-			ViewAdminHome.alertCurrentError.showAndWait();
-			return;
-		}
-		
-		// Otherwise, clear, if any, old invitations associated with the email address entered
-		theDatabase.clearOldInvitationCode(emailAddress);
-		
-		// Check to ensure that we are not sending a second message with a new invitation code to
-		// the same email address.  
-		if (theDatabase.emailaddressHasBeenUsed(emailAddress)) {
-			ViewAdminHome.alertEmailError.setContentText(
-					"An invitation has already been sent to this email address.");
-			ViewAdminHome.alertEmailError.showAndWait();
-			return;
-		}
-		
-		// Inform the user that the invitation has been sent and display the invitation code
-		String theSelectedRole = (String) ViewAdminHome.combobox_SelectRole.getValue();
-		String invitationCode = theDatabase.generateInvitationCode(emailAddress,
-				theSelectedRole);
-		String msg = "Code: " + invitationCode + " for role " + theSelectedRole + 
-				" was sent to: " + emailAddress;
-		System.out.println(msg);
-		ViewAdminHome.alertEmailSent.setContentText(msg);
-		ViewAdminHome.alertEmailSent.showAndWait();
-		
-		// Update the Admin Home pages status
-		ViewAdminHome.text_InvitationEmailAddress.setText("");
-		ViewAdminHome.label_NumberOfInvitations.setText("Number of outstanding invitations: " + 
-				theDatabase.getNumberOfInvitations());
-	}
 	
 	/**********
 	 * <p> 
@@ -101,12 +50,10 @@ public class ControllerAdminHome {
 	 * this function has not yet been implemented. </p>
 	 */
 	protected static void manageInvitations () {
-		System.out.println("\n*** WARNING ***: Manage Invitations Not Yet Implemented");
-		ViewAdminHome.alertNotImplemented.setTitle("*** WARNING ***");
-		ViewAdminHome.alertNotImplemented.setHeaderText("Manage Invitations Issue");
-		ViewAdminHome.alertNotImplemented.setContentText("Manage Invitations Not Yet Implemented");
-		ViewAdminHome.alertNotImplemented.showAndWait();
+		guiManageInvitations.ViewManageInvitations.displayManageInvitations(ViewAdminHome.theStage, 
+				ViewAdminHome.theUser);
 	}
+
 	
 	/**********
 	 * <p> 
@@ -126,6 +73,7 @@ public class ControllerAdminHome {
 		ViewAdminHome.alertNotImplemented.setContentText("One-Time Password Not Yet Implemented");
 		ViewAdminHome.alertNotImplemented.showAndWait();*/
 	}
+
 	
 	/**********
 	 * <p> 
@@ -140,6 +88,7 @@ public class ControllerAdminHome {
 		guiDeleteUser.ViewDeleteUser.displayDeleteUser(ViewAdminHome.theStage, 
 				ViewAdminHome.theUser);
 	}
+
 	
 	/**********
 	 * <p> 
@@ -156,6 +105,7 @@ public class ControllerAdminHome {
 		ViewAdminHome.alertNotImplemented.setContentText("List Users Not Yet Implemented");
 		ViewAdminHome.alertNotImplemented.showAndWait();
 	}
+
 	
 	/**********
 	 * <p> 
@@ -172,27 +122,6 @@ public class ControllerAdminHome {
 				ViewAdminHome.theUser);
 	}
 	
-	/**********
-	 * <p> 
-	 * 
-	 * Title: invalidEmailAddress () Method. </p>
-	 * 
-	 * <p> Description: Protected method that is intended to check an email address before it is
-	 * used to reduce errors.  The code currently only checks to see that the email address is not
-	 * empty.  In the future, a syntactic check must be performed and maybe there is a way to check
-	 * if a properly email address is active.</p>
-	 * 
-	 * @param emailAddress	This String holds what is expected to be an email address
-	 */
-	protected static boolean invalidEmailAddress(String emailAddress) {
-		if (emailAddress.length() == 0) {
-			ViewAdminHome.alertEmailError.setContentText(
-					"Correct the email address and try again.");
-			ViewAdminHome.alertEmailError.showAndWait();
-			return true;
-		}
-		return false;
-	}
 	
 	/**********
 	 * <p> 
@@ -205,6 +134,7 @@ public class ControllerAdminHome {
 	protected static void performLogout() {
 		guiUserLogin.ViewUserLogin.displayUserLogin(ViewAdminHome.theStage);
 	}
+
 	
 	/**********
 	 * <p> 
