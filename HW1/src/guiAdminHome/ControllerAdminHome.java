@@ -57,6 +57,10 @@ public class ControllerAdminHome {
 		
 		// Verify that the current user cannot send an invitation to themselves, display an error message
 		if (emailAddress.equals(theDatabase.getCurrentEmailAddress())) {
+			System.out.println("Please choose another user that isn't you.");
+			// need to add an alert here
+			ViewAdminHome.alertCurrentError.setContentText("Please choose another user that isn't you.");
+			ViewAdminHome.alertCurrentError.showAndWait();
 			return;
 		}
 		
