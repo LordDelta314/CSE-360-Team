@@ -91,6 +91,7 @@ public class ViewAdminHome {
 	protected static Button button_SendInvitation = new Button("Send Invitation");
 	protected static Alert alertEmailError = new Alert(AlertType.INFORMATION);
 	protected static Alert alertEmailSent = new Alert(AlertType.INFORMATION);
+	protected static Alert alertCurrentError = new Alert(AlertType.INFORMATION);
 	
 	// This is a separator and it is used to partition the GUI for various tasks
 	private static Line line_Separator3 = new Line(20, 255, width-20, 255);
@@ -268,6 +269,8 @@ public class ViewAdminHome {
 		setupButtonUI(button_Quit, "Dialog", 18, 250, Pos.CENTER, 300, 540);
 		button_Quit.setOnAction((event) -> {ControllerAdminHome.performQuit(); });
 
+		alertCurrentError.setTitle("Current User Error");
+		alertCurrentError.setHeaderText("You are the current user.");
 		// This is the end of the GUI initialization code
 		
 		// Place all of the widget items into the Root Pane's list of children
