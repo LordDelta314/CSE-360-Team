@@ -64,7 +64,8 @@ public class ControllerAdminHome {
 	 * this function has not yet been implemented. </p>
 	 */
 	protected static void setOnetimePassword () {
-		guiOneTime.ViewOneTime.displayOneTime(ViewAdminHome.theStage, ViewAdminHome.theUser);
+		guiOneTimePassword.ViewOneTimePassword.displayOneTimePassword(ViewAdminHome.theStage, 
+				ViewAdminHome.theUser);
 		
 		//guiUserLogin.ViewUserLogin.displayUserLogin(ViewAdminHome.theStage);
 		/*System.out.println("\n*** WARNING ***: One-Time Password Not Yet Implemented");
