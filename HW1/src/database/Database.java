@@ -443,7 +443,20 @@ public class Database {
 	    }
 	    return code;
 	}
-	
+
+	/*******
+	 * <p> Method: boolean checkInvitationCode(String code) </p>
+	 * 
+	 * <p> Description: Given an invitation code, this method will query and validate 
+	 * whether an entered code is still valid for use. When the invitation code is entered and the setup
+	 * account button is clicked, it will compare the time that the user entered in the code with the 
+	 * deadline associated with the code.</p>
+	 * 
+	 * @param code specifies the invitation code that a user will use
+	 * 
+	 * @return true is the code is still within the deadline period for use, else false
+	 * 
+	 */
 	// Method for checking if the invitation code is still valid
 	public boolean checkInvitationCode(String code) {
 		String query = "SELECT deadline from InvitationCodes WHERE code = ?";
@@ -472,7 +485,17 @@ public class Database {
 		
 		return true;
 	}
-	
+
+	/*******
+	 * <p> Method: void clearOldInvitationCode(String emailAddress) </p>
+	 * 
+	 * <p> Description: Given an email address, this method will delete the user from the InvitationCode and 
+	 * userDB tables when their invitation code is invalid. This allows for the admin to resend another invitation
+	 * code to the same email address without any issue.</p>
+	 * 
+	 * @param emailAddress specifies the email address for this user
+	 * 
+	 */
 	// Method for clearing the user entry with an expired invitation code
 	public void clearOldInvitationCode(String emailAddress) {
 		String query = "DELETE from InvitationCodes where emailAddress = ?";
@@ -554,57 +577,6 @@ public class Database {
 		
 		return null;
 	}
-
-
-
-	
-	/*public String generateOneTimePass(String emailAddress) {
-		String code = UUID.randomUUID().toString().substring(0, 6);
-		String query = "INSERT INTO OneTimePass (emailAddress, password, deadline, used) VALUES (?, ?, ?, ?)";
-		
-		LocalDateTime time = LocalDateTime.now();
-		LocalDateTime timestamp = time.plusMinutes(10);
-		Timestamp deadline = Timestamp.valueOf(timestamp);
-		
-		try(PreparedStatement pstmt = connection.prepareStatement(query)) {
-			pstmt.setString(1, emailAddress);
-			pstmt.setString(2, code);
-			pstmt.setTimestamp(3, deadline);
-			pstmt.setBoolean(4, false);
-			pstmt.executeUpdate();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		
-		originalPassword = currentPassword;
-		currentPassword = code;
-		
-		return code;
-	}*/
-	
-	/*public void updateOnePass(String password, String emailAddress) {
-	    String query = "UPDATE userDB SET password = ? WHERE emailAddress = ?";
-	    try (PreparedStatement pstmt = connection.prepareStatement(query)) {
-	        pstmt.setString(1, password);
-	        pstmt.setString(2, emailAddress);
-	        pstmt.executeUpdate();
-	        currentEmailAddress = emailAddress;
-	    } catch (SQLException e) {
-	        e.printStackTrace();
-	    }
-	}*/
-
-	/*public String getOneTimePass() {
-		String query = "SELECT password FROM OneTimePass WHERE emailAddress = ? AND used = FALSE";
-		try {
-			if(resultSet.next()) {
-				return resultSet.getString("password");
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return "";
-	}*/
 	
 	/*******
 	 * <p> Method: int getNumberOfInvitations() </p>
