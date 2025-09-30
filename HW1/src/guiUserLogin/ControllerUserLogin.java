@@ -77,18 +77,27 @@ public class ControllerUserLogin {
 			// Admin role
 			if (user.getAdminRole()) {
 				loginResult = theDatabase.loginAdmin(user);
-				if (loginResult) {
+				if(password.length() == 6) {
+					guiUserUpdate.ViewUserUpdate.displayUserUpdate(ts, user, false);
+				}
+				else if (loginResult) {
 					guiAdminHome.ViewAdminHome.displayAdminHome(theStage, user);
 				}
 			} else if (user.getNewRole1()) {
 				loginResult = theDatabase.loginRole1(user);
-				if (loginResult) {
-					guiRole1.ViewRole1Home.displayRole1Home(theStage, user);
+				if(password.length() == 6) {
+					guiUserUpdate.ViewUserUpdate.displayUserUpdate(ts, user, false);
+				}
+				else if (loginResult) {
+					guiStudent.ViewStudentHome.displayRole1Home(theStage, user);
 				}
 			} else if (user.getNewRole2()) {
 				loginResult = theDatabase.loginRole2(user);
-				if (loginResult) {
-					guiRole2.ViewRole2Home.displayRole2Home(theStage, user);
+				if(password.length() == 6) {
+					guiUserUpdate.ViewUserUpdate.displayUserUpdate(ts, user, false);
+				}
+				else if (loginResult) {
+					guiStaff.ViewStaffHome.displayRole2Home(theStage, user);
 				}
 				// Other roles
 			} else {
