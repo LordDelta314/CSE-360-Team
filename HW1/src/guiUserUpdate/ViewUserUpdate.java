@@ -117,6 +117,11 @@ public class ViewUserUpdate {
 
 	private static Optional<String> result;		// The result from a pop-up dialog
 
+	protected static Alert invalidPassAlert = new Alert(AlertType.INFORMATION);
+	
+	private static boolean passValid = true;  // Tracks if a password is valid, default set to true 
+	private static String originalPass = "";  // Variable to keep track of the original password before it is changed, for validation reasons
+	
 	/*-********************************************************************************************
 
 	Constructors
@@ -125,7 +130,7 @@ public class ViewUserUpdate {
 
 
 	/**********
-	 * <p> Method: displayUserUpdate(Stage ps, User user) </p>
+	 * <p> Method: displayUserUpdate(Stage ps, User user, boolean isFirstAdmin, boolean updatePass) </p>
 	 * 
 	 * <p> Description: This method is the single entry point from outside this package to cause
 	 * the UserUpdate page to be displayed.
@@ -144,12 +149,17 @@ public class ViewUserUpdate {
 	 * 
 	 * @param user specifies the User whose roles will be updated
 	 *
+	 * @param isFirstAdmin specifies if the user is the first user of the program
+	 * 
+	 * @param updatePass specifies the opportunity to update an existing password
 	 */
-	public static void displayUserUpdate(Stage ps, User user) {
+	public static void displayUserUpdate(Stage ps, User user, boolean isFirstAdmin, boolean updatePass) {
 		
 		// Establish the references to the GUI and the current user
 		theUser = user;
 		theStage = ps;
+
+		originalPass = theUser.getPassword(); // copy of the original password before changes
 		
 		// If not yet established, populate the static aspects of the GUI by creating the 
 		// singleton instance of this class
@@ -157,6 +167,13 @@ public class ViewUserUpdate {
 		
 		// Set the widget values that change from use of page to another use of the page.
 		String s = "";
+
+		if(isFirstAdmin) {
+			button_UpdatePassword.setDisable(true); // disable the first instance of the update pass button (on the first admin) since they just created their VALID pass
+		}
+		else {
+			button_UpdatePassword.setDisable(false); // on every other instance set the update password button to be available for use 
+		}
 		
 		// Set the dynamic aspects of the window based on the user logged in and the current state
 		// of the various account elements.
@@ -166,8 +183,14 @@ public class ViewUserUpdate {
     	else label_CurrentUsername.setText(s);
 		
 		s = theUser.getPassword();
-    	if (s == null || s.length() < 1)label_CurrentPassword.setText("<none>");
-    	else label_CurrentPassword.setText(s);
+    	if (s == null || s.length() < 1 || s.length() == 6) { // if the length of the password is equal to 6 (the one time) we will nullify the entry and set the password to invalid
+    		label_CurrentPassword.setText("<none>");
+    		passValid = false;
+    	}
+    	else {
+    		label_CurrentPassword.setText(s); // otherwise the password is valid
+    		passValid = true;
+    	}
     	
 		s = theUser.getFirstName();
     	if (s == null || s.length() < 1)label_CurrentFirstName.setText("<none>");
@@ -193,6 +216,30 @@ public class ViewUserUpdate {
     	theStage.setTitle("CSE 360 Foundation Code: Update User Account Details");
         theStage.setScene(theUserUpdateScene);
 		theStage.show();
+
+		// On the click of the proceed button
+		button_ProceedToUserHomePage.setOnAction((event) -> 
+    	{
+    		System.out.println("Button clicked!");
+    		
+    	if(isFirstAdmin) { // if we are the firstAdmin, redirect to login page
+    		
+    		ViewUserLogin.displayUserLogin(theStage);
+    		return;
+    	}
+    		
+    	if(passValid) {
+    		if(originalPass.equals(theDatabase.getCurrentPassword())) { // If there are no changes in the password, then proceed to corresponding home page
+    			ControllerUserUpdate.goToUserHomePage(theStage, theUser);
+    			return;
+    		}
+    		ViewUserLogin.displayUserLogin(theStage); // moves user to the login page to login with new credentials
+    	}
+    	else {
+    		ViewUserUpdate.invalidPassAlert.showAndWait(); // If an invalid password, then show an alert
+    	}
+    	
+    	});
 	}
 
 	
@@ -221,7 +268,12 @@ public class ViewUserUpdate {
 		dialogUpdatePreferredFirstName = new TextInputDialog("");
 		dialogUpdateEmailAddresss = new TextInputDialog("");
 
+		dialogUpdatePassword = new TextInputDialog("");
+		
 		// Establish the label for each of the dialogs.
+		dialogUpdatePassword.setTitle("Update Password");
+		dialogUpdatePassword.setHeaderText("Pick a new valid password, if changed then you need to relogin.");
+		
 		dialogUpdateFirstName.setTitle("Update First Name");
 		dialogUpdateFirstName.setHeaderText("Update your First Name");
 		
@@ -245,7 +297,11 @@ public class ViewUserUpdate {
         
         // Display the titles, values, and update buttons for the various admin account attributes.
         // If the attributes is null or empty, display "<none>".
-        
+
+		invalidPassAlert.setTitle("Please enter a valid password");
+		invalidPassAlert.setHeaderText("You must fill in all necessary information for a password (upper, lower, special, number, min length of 8)");
+		invalidPassAlert.setContentText("Correct this issue and try again please.");
+		
         // USername
         setupLabelUI(label_Username, "Arial", 18, 190, Pos.BASELINE_RIGHT, 5, 100);
         setupLabelUI(label_CurrentUsername, "Arial", 18, 260, Pos.BASELINE_LEFT, 200, 100);
@@ -255,7 +311,87 @@ public class ViewUserUpdate {
         setupLabelUI(label_Password, "Arial", 18, 190, Pos.BASELINE_RIGHT, 5, 150);
         setupLabelUI(label_CurrentPassword, "Arial", 18, 260, Pos.BASELINE_LEFT, 200, 150);
         setupButtonUI(button_UpdatePassword, "Dialog", 18, 275, Pos.CENTER, 500, 143);
-        
+		button_UpdatePassword.setOnAction((event) -> { // Event handler for the update button 
+        result = dialogUpdatePassword.showAndWait();
+        passValid = true;
+    	result.ifPresent(name -> {
+    		// local variables for password FSM
+    		System.out.println(originalPass);
+    		if (name.equals("")) {
+    			ViewUserUpdate.label_CurrentPassword.setText("<none>");
+    			passValid = false;
+    			ViewUserUpdate.invalidPassAlert.showAndWait();
+    			return;
+    		}
+    		
+    		String passwordRecognizerInput = name;
+    		int currCharPassIndex = 0;
+    		char currPassChar = name.charAt(0);
+    		boolean foundUpper = false;
+    		boolean foundLower = false;
+    		boolean foundNumber = false;
+    		boolean foundSpecialChar = false;
+    		boolean foundLongEnough = false;
+    		boolean runningPass = true;
+    		boolean notInvalidChar = true;
+    		
+    		// FSM continues until EOI is reached or otherwise there is a forbidden character and the password is invalid
+    		while(runningPass) {
+    			if (currPassChar >= 'A' && currPassChar <= 'Z') {
+    				System.out.println("Upper case letter found");
+    				foundUpper = true;
+    			} else if (currPassChar >= 'a' && currPassChar <= 'z') {
+    				System.out.println("Lower case letter found");
+    				foundLower = true;
+    			} else if (currPassChar >= '0' && currPassChar <= '9') {
+    				System.out.println("Digit found");
+    				foundNumber = true;
+    			} else if ("~`!@#$%^&*()_-+={}[]|\\:;\"'<>,.?/".indexOf(currPassChar) >= 0) {
+    				System.out.println("Special character found");
+    				foundSpecialChar = true;
+    			} else {
+    				notInvalidChar = false;
+    			}
+    			// Added another condition making it so that the length doesn't exceed 32 characters
+    			if (currCharPassIndex > 31) {
+    				System.out.println("Now more than 32 characters have been found. Too long of a password!");
+    				foundLongEnough = false;
+    			}
+    			else if (currCharPassIndex >= 7) {
+    				System.out.println("At least 8 characters found");
+    				foundLongEnough = true;
+    			}
+    			
+    			
+    			// Go to the next character if there is one
+    			currCharPassIndex++;
+    			if (currCharPassIndex >= name.length())
+    				runningPass = false;
+    			else
+    				currPassChar = name.charAt(currCharPassIndex);
+    		}
+    		
+    		// if all password conditions are met, the password is valid, otherwise we give a corresponding error
+    		if(foundUpper && foundLower && foundNumber && foundSpecialChar && foundLongEnough && notInvalidChar) {
+    			passValid = true;
+    		}
+    		else {
+    			ViewUserUpdate.label_CurrentPassword.setText("<none>");
+    			ViewUserUpdate.invalidPassAlert.showAndWait();
+    			passValid = false;
+    			return;
+    		}
+    		
+    		if(passValid) { // update the database with the updated password, set corresponding view changes
+    			theDatabase.updatePassword(name, theUser.getUserName());
+        		String newPass = theDatabase.getCurrentPassword();
+        		System.out.println(newPass);
+        		theUser.setPassword(newPass);
+        		label_CurrentPassword.setText(newPass);
+    		}
+    	});
+     	});
+		
         // First Name
         setupLabelUI(label_FirstName, "Arial", 18, 190, Pos.BASELINE_RIGHT, 5, 200);
         setupLabelUI(label_CurrentFirstName, "Arial", 18, 260, Pos.BASELINE_LEFT, 200, 200);
@@ -328,8 +464,6 @@ public class ViewUserUpdate {
         // Set up the button to proceed to this user's home page
         setupButtonUI(button_ProceedToUserHomePage, "Dialog", 18, 300, 
         		Pos.CENTER, width/2-150, 450);
-        button_ProceedToUserHomePage.setOnAction((event) -> 
-        	{ControllerUserUpdate.goToUserHomePage(theStage, theUser);});
     	
         // Populate the Pane's list of children widgets
         theRootPane.getChildren().addAll(
