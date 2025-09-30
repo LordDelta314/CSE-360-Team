@@ -3,29 +3,6 @@ package guiOneTimePassword;
 import database.Database;
 import guiAdminHome.ViewAdminHome;
 
-/*******
- * <p> Title: GUIAdminHomePage Class. </p>
- * 
- * <p> Description: The Java/FX-based Admin Home Page.  This class provides the controller actions
- * basic on the user's use of the JavaFX GUI widgets defined by the View class.
- * 
- * This page contains a number of buttons that have not yet been implemented.  WHen those buttons
- * are pressed, an alert pops up to tell the user that the function associated with the button has
- * not been implemented. Also, be aware that What has been implemented may not work the way the
- * final product requires and there maybe defects in this code.
- * 
- * The class has been written assuming that the View or the Model are the only class methods that
- * can invoke these methods.  This is why each has been declared at "protected".  Do not change any
- * of these methods to public.</p>
- * 
- * <p> Copyright: Lynn Robert Carter © 2025 </p>
- * 
- * @author Lynn Robert Carter
- * 
- * @version 1.00		2025-08-17 Initial version
- *  
- */
-
 public class ControllerOneTimePassword {
 	
 	/*-*******************************************************************************************
@@ -45,10 +22,10 @@ public class ControllerOneTimePassword {
 	/**********
 	 * <p> 
 	 * 
-	 * Title: performInvitation () Method. </p>
+	 * Title: performPasswordSend () Method. </p>
 	 * 
-	 * <p> Description: Protected method to send an email inviting a potential user to establish
-	 * an account and a specific role. </p>
+	 * <p> Description: Protected method to send an password to a user to allow them to
+	 * login to their account. </p>
 	 */
 	protected static void performPasswordSend () {
 		// Verify that the email address is valid - If not alert the user and return
