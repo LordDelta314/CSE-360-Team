@@ -150,10 +150,9 @@ public class ViewUserUpdate {
 	 * @param user specifies the User whose roles will be updated
 	 *
 	 * @param isFirstAdmin specifies if the user is the first user of the program
-	 * 
-	 * @param updatePass specifies the opportunity to update an existing password
+	 *
 	 */
-	public static void displayUserUpdate(Stage ps, User user, boolean isFirstAdmin, boolean updatePass) {
+	public static void displayUserUpdate(Stage ps, User user, boolean isFirstAdmin) {
 		
 		// Establish the references to the GUI and the current user
 		theUser = user;
