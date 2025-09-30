@@ -9,7 +9,7 @@ public class ControllerRole2Home {
 	**********************************************************************************************/
 	
 	protected static void performUpdate () {
-		guiUserUpdate.ViewUserUpdate.displayUserUpdate(ViewRole2Home.theStage, ViewRole2Home.theUser);
+		guiUserUpdate.ViewUserUpdate.displayUserUpdate(ViewRole2Home.theStage, ViewRole2Home.theUser, false);
 	}	
 
 	
