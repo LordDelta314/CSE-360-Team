@@ -168,7 +168,7 @@ public class ViewDeleteUser {
 		
 		setupButtonUI(button_UpdateThisUser, "Dialog", 18, 170, Pos.CENTER, 610, 45);
 		button_UpdateThisUser.setOnAction((event) -> 
-			{guiUserUpdate.ViewUserUpdate.displayUserUpdate(theStage, theUser); });
+			{guiUserUpdate.ViewUserUpdate.displayUserUpdate(theStage, theUser, false); });
 		
 		// GUI Area 2
 		// Establish the text input operand field for the username of the user to delete
