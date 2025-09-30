@@ -113,7 +113,10 @@ public class ViewManageInvitations {
 		// Set the title for the window, display the page, and wait for the Admin to do something
 		theStage.setTitle("CSE 360 Foundation Code: Admin Manage Invitations Page");
 		theStage.setScene(theManageInvitationsScene);						// Set this page onto the stage
-		theStage.show();													// Display it to the user
+		theStage.show();	
+		
+		label_UserDetails.setText("User: " + theUser.getUserName());
+		// Display it to the user
 	}
 
 	
@@ -142,7 +145,6 @@ public class ViewManageInvitations {
 		label_PageTitle.setText("Manage Invitations Page");
 		setupLabelUI(label_PageTitle, "Arial", 28, width, Pos.CENTER, 0, 5);
 
-		label_UserDetails.setText("User: " + theUser.getUserName());
 		setupLabelUI(label_UserDetails, "Arial", 20, width, Pos.BASELINE_LEFT, 20, 55);
 		
 		setupButtonUI(button_UpdateThisUser, "Dialog", 18, 170, Pos.CENTER, 610, 45);
