@@ -577,6 +577,29 @@ public class Database {
 		
 		return null;
 	}
+
+	/*******
+	 * <p> Method: void updatePassword(String password, String username) </p>
+	 * 
+	 * <p> Description: Update password and place into database, follows validation rules.</p>
+	 * 
+	 * @param password is the updated password to be entered into the database
+	 * 
+	 * @param username is the username column in the database where we are updating the password
+	 *  
+	 */
+	// Update a password when we update the user details
+	public void updatePassword2(String password, String username) {
+		String query = "UPDATE userDB SET password = ? WHERE userName = ?";
+	    try (PreparedStatement pstmt = connection.prepareStatement(query)) {
+	        pstmt.setString(1, password);
+	        pstmt.setString(2, username);
+	        pstmt.executeUpdate();
+	        currentPassword = password;
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+	}
 	
 	/*******
 	 * <p> Method: int getNumberOfInvitations() </p>
