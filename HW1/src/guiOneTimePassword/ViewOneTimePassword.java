@@ -25,17 +25,15 @@ import guiOneTimePassword.ViewOneTimePassword;
 import guiUserUpdate.ViewUserUpdate;
 
 /*******
- * <p> Title: GUIAdminHomePage Class. </p>
+ * <p> Title: GUIOneTimePassword Class. </p>
  * 
- * <p> Description: The Java/FX-based Admin Home Page.  This class provides the JavaFX GUI widgets
- * that enable an admin to perform admin functions.  This page contains a number of buttons that
- * have not yet been implemented.  What has been implemented may not work the way the final product
- * requires and there maybe defects in this code.
+ * <p> Description: The Java/FX-based One Time Password Page.  This class provides the JavaFX GUI widgets
+ * that enable an admin to send a one-time password to a user.
  * 
  * The class has been written using a singleton design pattern and is the View portion of the 
  * Model, View, Controller pattern.  The pattern is designed that the all accesses to this page and
- * its functions starts by invoking the static method displayAdminHome.  No other method should 
- * attempt to instantiate this class as that is controlled by displayAdminHome.  It ensure that
+ * its functions starts by invoking the static method displayOneTimePassword.  No other method should 
+ * attempt to instantiate this class as that is controlled by displayOneTimePassword.  It ensure that
  * only one instance of class is instantiated and that one is properly configured for each use.  
  * 
  * Please note that this implementation is not appropriate for concurrent systems with multiple
@@ -44,7 +42,7 @@ import guiUserUpdate.ViewUserUpdate;
  * 
  * <p> Copyright: Lynn Robert Carter © 2025 </p>
  * 
- * @author Lynn Robert Carter
+ * @author Preston Kirby
  * 
  * @version 1.00		2025-08-17 Initial version
  *  
@@ -66,19 +64,19 @@ public class ViewOneTimePassword {
 	
 	// These are the widget attributes for the GUI. There are * areas for this GUI.
 	
-	// GUI Area 1: To Be Determined
+	// GUI Area 1: Establish the labels for the OneTimePassword page.
 	protected static Label label_PageTitle = new Label();
 	protected static Label label_InitPrompt = new Label();
 	
 	
-	// GUI Area 2: This area is used to provide status of the system.  This basic foundational code
-		// does not have much current status information to display.
+	// GUI Area 2: This area is used to provide status of the system.
 		protected static Label label_NumberOfPasswords = 
 				new Label("Number of Oustanding Invitations: x");
 		protected static Label label_NumberOfUsers = new Label("Number of Users: x");
 	
 	
-	// GUI Area 3: 
+	// GUI Area 3: This area prepares all of the labels and input fields necessary for
+	// the admin to send out the password to a user of their choosing.
 	protected static Label label_EmailInput = new Label("Write the email of the user needing"
 			+ " a one-time password:");
 	protected static Label label_InvitationEmailAddress = new Label("Email Address");
@@ -88,7 +86,7 @@ public class ViewOneTimePassword {
 	protected static Alert alertEmailSent = new Alert(AlertType.INFORMATION);
 	
 	
-	// GUI Area x: Return, Logout or Quit
+	// GUI Area 4: Return, Logout or Quit
 	protected static Button button_Return = new Button("Return");
 	protected static Button button_Logout = new Button("Logout");
 	protected static Button button_Quit = new Button("Quit");
@@ -157,14 +155,14 @@ public class ViewOneTimePassword {
 		}
 		
 		/**********
-		 * <p> Method: GUIAdminHomePage() </p>
+		 * <p> Method: GUIOneTimePasswordPage() </p>
 		 * 
 		 * <p> Description: This method initializes all the elements of the graphical user interface.
 		 * This method determines the location, size, font, color, and change and event handlers for
 		 * each GUI object.
 		 * 
 		 * This is a singleton and is only performed once.  Subsequent uses fill in the changeable
-		 * fields using the displayAdminHome method.</p>
+		 * fields using the displayOneTimePassword method.</p>
 		 * 
 		 */
 		private ViewOneTimePassword() {
@@ -207,7 +205,7 @@ public class ViewOneTimePassword {
 			setupButtonUI(button_SendPassword, "Dialog", 16, 150, Pos.CENTER, 630, 205);
 			button_SendPassword.setOnAction((event) -> {ControllerOneTimePassword.performPasswordSend(); });
 			
-			// GUI Area x
+			// GUI Area 4
 			setupButtonUI(button_Return, "Dialog", 18, 210, Pos.CENTER, 20, 540);
 			button_Return.setOnAction((event) -> {ControllerOneTimePassword.performReturn(); });
 			
@@ -235,7 +233,7 @@ public class ViewOneTimePassword {
 			);
 					
 					
-			// With theRootPane set up with the common widgets, it is up to displayAdminHome to show
+			// With theRootPane set up with the common widgets, it is up to displayOneTimePassword to show
 			// that Pane to the user after the dynamic elements of the widgets have been updated.
 		}
 		
