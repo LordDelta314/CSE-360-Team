@@ -496,7 +496,7 @@ public class Database {
 		
 	}
 
-	//
+	// Method that generates a random one-time password and attaches it to the given email address in the user database
 	public String generatePassword(String emailAddress) {
 		String OnePassword = UUID.randomUUID().toString().substring(0, 6); // Generate a random 6-character code
 	    String query = "INSERT INTO OneTimePassword (OnePassword, emailaddress) VALUES (?, ?)";
@@ -514,7 +514,7 @@ public class Database {
 	
 	
 	
-	//
+	// Updates a user's current password, given their email address and a new password
 	public Void updatePassword(String emailAddress, String password) {
 		String query = "UPDATE userDB SET password = ? WHERE emailAddress = ?";
 		
