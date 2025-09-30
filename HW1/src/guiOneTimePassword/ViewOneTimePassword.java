@@ -117,10 +117,10 @@ public class ViewOneTimePassword {
 		*/
 
 		/**********
-		 * <p> Method: displayAdminHome(Stage ps, User user) </p>
+		 * <p> Method: displayOneTimePassword(Stage ps, User user) </p>
 		 * 
 		 * <p> Description: This method is the single entry point from outside this package to cause
-		 * the Admin Home page to be displayed.
+		 * the OneTimePassword page to be displayed.
 		 * 
 		 * It first sets up every shared attributes so we don't have to pass parameters.
 		 * 
