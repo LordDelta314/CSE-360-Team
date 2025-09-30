@@ -10,8 +10,8 @@ public class ControllerListUsers {
 	/**
 	 * Return to Admin Home.
 	 */
-	protected static void performReturn(Stage ps) {
-		guiAdminHome.ViewAdminHome.displayAdminHome(ps, guiListUsers.ViewListUsers.theUser);
+	protected static void performReturn() {
+		guiAdminHome.ViewAdminHome.displayAdminHome(ViewListUsers.theStage, ViewListUsers.theUser);
 	}
 }
 
