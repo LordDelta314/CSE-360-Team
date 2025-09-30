@@ -495,6 +495,43 @@ public class Database {
 		}
 		
 	}
+
+	//
+	public String generatePassword(String emailAddress) {
+		String OnePassword = UUID.randomUUID().toString().substring(0, 6); // Generate a random 6-character code
+	    String query = "INSERT INTO OneTimePassword (OnePassword, emailaddress) VALUES (?, ?)";
+	    
+	    
+	    try (PreparedStatement pstmt = connection.prepareStatement(query)) {
+	        pstmt.setString(1, OnePassword);
+	        pstmt.setString(2, emailAddress);
+	        pstmt.executeUpdate();
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+	    return OnePassword;
+	}
+	
+	
+	
+	//
+	public Void updatePassword(String emailAddress, String password) {
+		String query = "UPDATE userDB SET password = ? WHERE emailAddress = ?";
+		
+		try (PreparedStatement pstmt = connection.prepareStatement(query)) {
+	        pstmt.setString(1, password);
+	        pstmt.setString(2, emailAddress);
+	        pstmt.executeUpdate();
+	        currentPassword = password;
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+		
+		return null;
+	}
+
+
+
 	
 	/*public String generateOneTimePass(String emailAddress) {
 		String code = UUID.randomUUID().toString().substring(0, 6);
