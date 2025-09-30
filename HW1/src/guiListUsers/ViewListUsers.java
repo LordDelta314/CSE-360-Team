@@ -37,11 +37,15 @@ public class ViewListUsers {
 
     private static TableView<UserRow> table = new TableView<>();
 
-    // Keep track of the current admin user to return to Admin Home
+    // Keep track of the current admin user to return to Admin Home, as well as the stage
     protected static User theUser;
+    protected static Stage theStage;
+
+    private static Database theDatabase = applicationMain.FoundationsMain.database;
 
     public static void displayListUsers(Stage ps, User user) {
         theUser = user;
+        theStage = ps;
 
         Pane root = new Pane();
 
@@ -55,7 +59,7 @@ public class ViewListUsers {
         button_Return.setLayoutX(width - 140);
         button_Return.setLayoutY(height - 60);
         button_Return.setPrefWidth(120);
-        button_Return.setOnAction(e -> ControllerListUsers.performReturn(ps));
+        button_Return.setOnAction(e -> ControllerListUsers.performReturn());
 
         root.getChildren().addAll(label_Title, label_Subtitle, table, button_Return);
 
@@ -152,24 +156,22 @@ public class ViewListUsers {
 
     private static ObservableList<UserRow> loadUsers() {
         List<UserRow> rows = new ArrayList<>();
-        Database db = new Database();
         try {
-            db.connectToDatabase();
-            List<String> usernames = db.getUserList();
+            List<String> usernames = theDatabase.getUserList();
             if (usernames != null) {
                 for (String u : usernames) {
                     if ("<Select a User>".equals(u)) continue;
-                    if (db.getUserAccountDetails(u)) {
+                    if (theDatabase.getUserAccountDetails(u)) {
                         UserRow r = new UserRow(
-                            db.getCurrentUsername(),
-                            db.getCurrentFirstName(),
-                            db.getCurrentMiddleName(),
-                            db.getCurrentLastName(),
-                            db.getCurrentPreferredFirstName(),
-                            db.getCurrentEmailAddress(),
-                            db.getCurrentAdminRole(),
-                            db.getCurrentStudentRole(),
-                            db.getCurrentStaffRole()
+                            theDatabase.getCurrentUsername(),
+                            theDatabase.getCurrentFirstName(),
+                            theDatabase.getCurrentMiddleName(),
+                            theDatabase.getCurrentLastName(),
+                            theDatabase.getCurrentPreferredFirstName(),
+                            theDatabase.getCurrentEmailAddress(),
+                            theDatabase.getCurrentAdminRole(),
+                            theDatabase.getCurrentStudentRole(),
+                            theDatabase.getCurrentStaffRole()
                         );
                         rows.add(r);
                     }
@@ -177,8 +179,6 @@ public class ViewListUsers {
             }
         } catch (Exception ex) {
             ex.printStackTrace();
-        } finally {
-            db.closeConnection();
         }
         return FXCollections.observableArrayList(rows);
     }
