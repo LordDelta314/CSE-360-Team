@@ -181,7 +181,7 @@ public class ViewAddRemoveRoles {
 		
 		setupButtonUI(button_UpdateThisUser, "Dialog", 18, 170, Pos.CENTER, 610, 45);
 		button_UpdateThisUser.setOnAction((event) -> 
-			{guiUserUpdate.ViewUserUpdate.displayUserUpdate(theStage, theUser, false, false); });
+			{guiUserUpdate.ViewUserUpdate.displayUserUpdate(theStage, theUser, false); });
 		
 		// GUI Area 2a
 		setupLabelUI(label_SelectUser, "Arial", 20, 300, Pos.BASELINE_LEFT, 20, 130);
