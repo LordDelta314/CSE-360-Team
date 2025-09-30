@@ -233,9 +233,6 @@ public class ViewAdminHome {
     
 		setupButtonUI(button_Quit, "Dialog", 18, 250, Pos.CENTER, 300, 540);
 		button_Quit.setOnAction((event) -> {ControllerAdminHome.performQuit(); });
-
-		alertCurrentError.setTitle("Current User Error");
-		alertCurrentError.setHeaderText("You are the current user.");
 		// This is the end of the GUI initialization code
 		
 		// Place all of the widget items into the Root Pane's list of children
