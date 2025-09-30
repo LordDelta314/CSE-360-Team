@@ -382,7 +382,7 @@ public class ControllerNewAccount {
 	            theDatabase.getUserAccountDetails(username);
 	
 	            // Navigate to the Welcome Login Page
-	            guiUserUpdate.ViewUserUpdate.displayUserUpdate(ViewNewAccount.theStage, user);
+	            guiUserUpdate.ViewUserUpdate.displayUserUpdate(ViewNewAccount.theStage, user, false);
 			}
 			else {
 				// The two passwords are NOT the same, so clear the passwords, explain the passwords
