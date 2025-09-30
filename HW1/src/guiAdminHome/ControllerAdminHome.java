@@ -60,8 +60,9 @@ public class ControllerAdminHome {
 	 * 
 	 * Title: setOnetimePassword () Method. </p>
 	 * 
-	 * <p> Description: Protected method that is currently a stub informing the user that
-	 * this function has not yet been implemented. </p>
+	 * <p> Description: Protected method that allows an admin to send a temporary password to a user
+	 * that has forgotten their password, and can use the temporary one to login in order to change
+	 * their password. </p>
 	 */
 	protected static void setOnetimePassword () {
 		guiOneTimePassword.ViewOneTimePassword.displayOneTimePassword(ViewAdminHome.theStage, 
