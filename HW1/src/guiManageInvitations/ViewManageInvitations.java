@@ -62,7 +62,8 @@ public class ViewManageInvitations {
 	protected static Alert alertEmailError = new Alert(AlertType.INFORMATION);
 	protected static Alert alertEmailSent = new Alert(AlertType.INFORMATION);
 	protected static Alert alertCurrentError = new Alert(AlertType.INFORMATION);
-	
+
+	protected static Alert alertDeadline = new Alert(AlertType.INFORMATION);
 	
 	// This is a separator and it is used to partition the GUI for various tasks
 	protected static Line line_Separator4 = new Line(20, 525, width-20,525);
@@ -174,6 +175,9 @@ public class ViewManageInvitations {
 		alertCurrentError.setTitle("Current User Error");
 		alertCurrentError.setHeaderText("You are the current user.");
 
+		alertDeadline.setTitle("Code Deadline");
+		alertDeadline.setHeaderText("10-minute code was sent.");
+		
 		setupButtonUI(button_SendInvitation, "Dialog", 16, 150, Pos.CENTER, 630, 205);
 		button_SendInvitation.setOnAction((event) -> {ControllerManageInvitations.performInvitation(); });
 		
