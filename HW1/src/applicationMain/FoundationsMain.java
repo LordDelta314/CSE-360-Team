@@ -6,6 +6,7 @@ import javafx.application.Application;
 import javafx.stage.Stage;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import guiTools.ValidationTest;
 
 /*******
  * <p> Title: FoundationsMain Class </p>
@@ -127,6 +128,10 @@ public class FoundationsMain extends Application {
 	 * @param String[] args   The array of command lines parameters.  These are not used.
 	 */
 	public static void main(String[] args) {
+		// Test Cases
+		String[] test = new String[5];
+		guiTools.ValidationTest.main(test);
+		
 		launch(args);	// The launch method loads JavaFX and invokes its initialization.  When it
 						// is done, it calls the start method shown above.
 	}
