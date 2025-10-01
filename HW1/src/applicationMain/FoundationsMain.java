@@ -81,6 +81,14 @@ public class FoundationsMain extends Application {
 	
 	@Override
 	public void start(Stage theStage) {
+
+		// Load CSS style for the entire application
+		String css = getClass().getResource("application.css").toExternalForm();
+	    theStage.sceneProperty().addListener((obs, oldScene, newScene) -> {
+	        if (newScene != null) {
+	            newScene.getStylesheets().add(css);
+	        }
+	    });
 		
 		// Connect to the in-memory database
 		try {
