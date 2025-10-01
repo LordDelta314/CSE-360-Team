@@ -77,8 +77,8 @@ public class ControllerManageInvitations {
 		String msg = "Code: " + invitationCode + " for role " + theSelectedRole + 
 				" was sent to: " + emailAddress;
 		System.out.println(msg);
-		ViewManageInvitations.alertEmailSent.setContentText(msg);
-		ViewManageInvitations.alertEmailSent.showAndWait();
+		ViewManageInvitations.alertDeadline.setContentText(msg);
+		ViewManageInvitations.alertDeadline.showAndWait();
 		
 		// Update the Admin Home pages status
 		ViewManageInvitations.text_InvitationEmailAddress.setText("");
