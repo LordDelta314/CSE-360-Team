@@ -82,9 +82,6 @@ public class ViewAdminHome {
 	
 	// GUI Area 3: Currently empty
 	
-	// This is a separator and it is used to partition the GUI for various tasks
-	private static Line line_Separator3 = new Line(20, 255, width-20, 255);
-	
 	// GUI Area 4: This is the second of the two action item areas.  This provides a set of other
 	// admin buttons to use to perform other roles.  Many of these buttons are just stubs and an
 	// alert pops up to inform the admin of this fact.
@@ -210,18 +207,18 @@ public class ViewAdminHome {
 		// GUI Area 3
 	
 		// GUI Area 4
-		setupButtonUI(button_ManageInvitations, "Dialog", 16, 250, Pos.CENTER, 20, 270);
+		setupButtonUI(button_ManageInvitations, "Dialog", 16, 250, Pos.CENTER, 20, 170);
 		button_ManageInvitations.setOnAction((event) -> 
 			{ControllerAdminHome.manageInvitations(); });
 	
-		setupButtonUI(button_SetOnetimePassword, "Dialog", 16, 250, Pos.CENTER, 20, 320);
+		setupButtonUI(button_SetOnetimePassword, "Dialog", 16, 250, Pos.CENTER, 20, 245);
 		button_SetOnetimePassword.setOnAction((event) -> 
 			{ControllerAdminHome.setOnetimePassword(); });
 
-		setupButtonUI(button_DeleteUser, "Dialog", 16, 250, Pos.CENTER, 20, 370);
+		setupButtonUI(button_DeleteUser, "Dialog", 16, 250, Pos.CENTER, 20, 320);
 		button_DeleteUser.setOnAction((event) -> {ControllerAdminHome.deleteUser(); });
 
-		setupButtonUI(button_ListUsers, "Dialog", 16, 250, Pos.CENTER, 20, 420);
+		setupButtonUI(button_ListUsers, "Dialog", 16, 250, Pos.CENTER, 20, 395);
 		button_ListUsers.setOnAction((event) -> {ControllerAdminHome.listUsers(); });
 
 		setupButtonUI(button_AddRemoveRoles, "Dialog", 16, 250, Pos.CENTER, 20, 470);
@@ -240,7 +237,6 @@ public class ViewAdminHome {
 			label_PageTitle, label_UserDetails, button_UpdateThisUser, line_Separator1,
     		label_NumberOfInvitations, label_NumberOfUsers,
     		line_Separator2,
-    		line_Separator3,
     		button_ManageInvitations,
     		button_SetOnetimePassword,
     		button_DeleteUser,
